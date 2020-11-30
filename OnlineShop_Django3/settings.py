@@ -8,11 +8,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^h*&n1f_d9pu+$k!37zoeir_@_@a_a-7mnqs+6_$=yofsx$!ap'
+import environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# False if not in os.environ
+DEBUG = env('DEBUG')
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
@@ -119,18 +127,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # cart settings
 CART_SESSION_ID = 'cart'
 
-# EMAIL_USE_TLS = True
-#
-# EMAIL_HOST = 'smtp.gmail.com'
-#
-# EMAIL_PORT = 587
-#
-# EMAIL_HOST_USER = 'atajner69@gmail.com'
-#
-# EMAIL_HOST_PASSWORD = 'tymczasowe'
-#
-# DEFAULT_FROM_EMAIL = 'atajner69@gmail.com'
-#
-# DEFAULT_TO_EMAIL = 'test@test.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
