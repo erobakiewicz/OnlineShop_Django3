@@ -1,7 +1,7 @@
 # Celery tasks
 from celery import task
-from OnlineShop_Django3.celery_settings import app
 from django.core.mail import send_mail
+
 from .models import Order
 
 
