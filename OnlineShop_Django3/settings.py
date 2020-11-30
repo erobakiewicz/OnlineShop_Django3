@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'celery',
 ]
 
 MIDDLEWARE = [
@@ -117,3 +118,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # cart settings
 CART_SESSION_ID = 'cart'
+
+# EMAIL_USE_TLS = True
+#
+# EMAIL_HOST = 'smtp.gmail.com'
+#
+# EMAIL_PORT = 587
+#
+# EMAIL_HOST_USER = 'atajner69@gmail.com'
+#
+# EMAIL_HOST_PASSWORD = 'tymczasowe'
+#
+# DEFAULT_FROM_EMAIL = 'atajner69@gmail.com'
+#
+# DEFAULT_TO_EMAIL = 'test@test.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
