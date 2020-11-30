@@ -9,6 +9,16 @@ from django.utils.safestring import mark_safe
 from orders.models import OrderItem, Order
 
 
+# export to pdf file
+def order_pdf(obj):
+    url = reverse('orders:admin_order_pdf', args=[obj.id])
+    return mark_safe(f'<a href="{url}">PDF</a>')
+
+
+order_pdf.short_description = 'Invoice'
+
+
+# exporting all orders to csv file
 def export_to_csv(modeladmin, request, queryset):
     opts = modeladmin.model._meta
     content_disposition = 'attachment; filename={opts.verbose_name}.csv'
@@ -50,6 +60,6 @@ class OrderAdmin(admin.ModelAdmin):
     actions = [export_to_csv]
     list_display = ['id', 'first_name', 'last_name', 'email',
                     'address', 'postal_code', 'city', 'paid',
-                    'created', 'updated', order_detail]
+                    'created', 'updated', order_detail, order_pdf]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
