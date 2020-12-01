@@ -5,7 +5,7 @@ from django.conf import settings
 from shop.models import Product
 
 r = redis.Redis(host=settings.REDIS_HOST,
-                port=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
                 db=settings.REDIS_DB)
 
 
@@ -49,3 +49,7 @@ class Recommender(object):
         suggested_products = list(Product.objects.filter(id__in=suggested_products_ids))
         suggested_products.sort(key=lambda x: suggested_products_ids.index(x.id))
         return suggested_products
+
+    def clear_purchases(self):
+        for id in Product.objects.values_list('id', flat=True):
+            r.delete(self.get_product_key(id))
