@@ -137,3 +137,8 @@ BRAINTREE_CONF = braintree.Configuration(braintree.Environment.Sandbox,
                                          BRAINTREE_PUBLIC_KEY,
                                          BRAINTREE_PRIVATE_KEY
                                          )
+
+# redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
